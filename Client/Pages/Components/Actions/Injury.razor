@@ -1,0 +1,30 @@
+﻿<MudItem>
+    <MudPaper Class="injury-action">
+        <h5>In<u style="text-decoration-skip-ink:none">j</u>ury</h5>
+        
+        <MudNumericField T="int" Min="2" Max="10" @bind-Value="_roll" Disabled="Disabled" Label="@Label()"/>
+        <MudButton Variant="Variant.Outlined" OnClick="AddAction" Disabled="Disabled">Add</MudButton>
+    </MudPaper>
+</MudItem>
+
+@code {
+    private int _roll = 8;
+
+    [Parameter]
+    public EventCallback<Action> OnAddAction { get; set; }
+        
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    private void AddAction()
+    {
+        OnAddAction.InvokeAsync(new ActionCalculator.Models.Actions.Injury(_roll));
+    }
+
+    private string Label() => _roll switch {
+        7 => "KO (Stunty)",
+        8 => "KO",
+        9 => "BH (Stunty)",
+        10 => "Cas",
+        _ => ""};
+}

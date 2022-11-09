@@ -1,0 +1,35 @@
+﻿@using ActionCalculator.Utilities
+@using System.Text
+@using System.Text.RegularExpressions
+
+<MudItem>
+    <MudPaper Class="player-summary">
+        <h6>Player @(PlayerNumber)</h6>
+        <MudText Class="player-skills">@($"Skills: {Player.Description()}")</MudText>
+        
+        @if (Player.Id != CurrentPlayerId)
+        {
+            <MudButton OnClick="EditPlayer" Variant="Variant.Outlined">Edit</MudButton>
+        }
+    </MudPaper>
+</MudItem>
+
+@code
+{
+    [Parameter]
+    public Player Player { get; set; } = null!;
+
+    [Parameter]
+    public int PlayerNumber { get; set; }  
+    
+    [Parameter]
+    public Guid CurrentPlayerId { get; set; }  
+
+    [Parameter]
+    public EventCallback<Guid> OnEditPlayer { get; set; }
+
+    private void EditPlayer()
+    {
+        OnEditPlayer.InvokeAsync(Player.Id);
+    }
+}

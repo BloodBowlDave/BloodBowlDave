@@ -1,0 +1,93 @@
+﻿
+<MudItem Class="action-summary">
+    <MudPaper Style="min-height: 51px;">
+        
+        <h6 @onclick="() => RemoveActionByIndex(Index)">
+            @if (Action.ActionType == ActionType.Block)
+            {
+                if (LastActionType == ActionType.Dauntless)
+                {
+                    @("Dauntless Success - ")
+                }
+                
+                if (PenultimateActionType == ActionType.Dauntless)
+                {
+                    @("Dauntless Failure - ")
+                }
+            }
+
+            @(Action.GetDescription())
+            <MudIcon Icon="@Icons.Filled.Cancel" Size="Size.Small"/>
+        </h6>
+        
+        @if (Action.ActionType == ActionType.Block)
+        {
+            <MudNumericField T="int" Min="1" Max="5" 
+                             Value="((ActionCalculator.Models.Actions.Block)PlayerAction.Action).NumberOfSuccessfulResults"
+                             ValueChanged="SuccessesChanged"
+                             Label="Successes"/>
+
+            if (Player.CanUseSkill(Skills.Brawler, Skills.None))
+            {
+                <MudTooltip Text="Brawler will be used over a reroll. If both-down is a successful result, remove the brawler skill">
+                    <MudCheckBox T="bool" 
+                                 Label="Use Brawler" 
+                                 Size="Size.Small"
+                                 Checked="UseBrawler()"
+                                 CheckedChanged="@(ToggleBrawler)"/>
+                </MudTooltip>
+            }
+        }
+
+        @if (Action.ActionType == ActionType.Dodge)
+        {
+            if (Player.CanUseSkill(Skills.BreakTackle, Skills.None))
+            {
+                <MudTooltip Text="Break tackle will be used over a reroll">
+                    <MudCheckBox T="bool" 
+                                 Label="Use Break Tackle" 
+                                 Size="Size.Small"
+                                 Checked="BreakTackle()"
+                                 CheckedChanged="@(ToggleBreakTackle)"/>
+                </MudTooltip>
+            }
+
+            <MudTooltip Text="Diving tackle will be triggered on this dodge if it would cause a reroll or turnover">
+                <MudCheckBox T="bool" 
+                             Label="Affected By Diving Tackle" 
+                             Size="Size.Small"
+                             Checked="DivingTackle()"
+                             CheckedChanged="@(ToggleDivingTackle)"/>
+            </MudTooltip>
+        }
+        
+        @if (Action.ActionType is ActionType.Pass or ActionType.ThrowTeammate)
+        {
+            <MudCheckBox T="bool" 
+                         Label="Reroll Inaccurate" 
+                         Size="Size.Small" 
+                         Checked="RerollInaccurate()"
+                         CheckedChanged="@(ToggleRerollInaccurate)"/>
+        }
+        
+        @if (Action.ActionType is ActionType.Dauntless)
+        {
+            <MudCheckBox T="bool" 
+                         Label="Reroll Failure" 
+                         Size="Size.Small" 
+                         Checked="RerollFailure()"
+                         CheckedChanged="@(ToggleRerollFailure)"/>
+        }
+        
+        @if (Action.IsRerollable() && Player.CanUseSkill(Skills.Pro, Skills.None))
+        {
+            <MudTooltip Text="Pro will be used over a team reroll">
+                <MudCheckBox T="bool" 
+                             Label="Use Pro" 
+                             Size="Size.Small"
+                             Checked="UsePro()"
+                             CheckedChanged="@(TogglePro)" />
+            </MudTooltip>
+        }
+    </MudPaper>
+</MudItem>

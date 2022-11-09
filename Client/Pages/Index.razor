@@ -1,9 +1,52 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Dave's Action Calculator</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudContainer MaxWidth="MaxWidth.Large">
+    <h2>Dave's Action Calculator</h2>
 
-Welcome to your new app.
+    <PlayerEditor 
+        CurrentPlayer="CurrentPlayer" 
+        OnPlayerChanged="PlayerChanged" 
+        OnNewPlayer="NewPlayer"
+        PlayerNumber="PlayerNumber()"/>
+    <MudDivider Style="Margin:10px 0 10px 0" DividerType="DividerType.Middle"/>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <ActionsContainer 
+        OnAddAction="AddAction" 
+        Calculation="_calculations[0]"/>
+    
+    <CalculationSummary 
+        Calculation="_calculations[0]" 
+        CurrentPlayerId="CurrentPlayer.Id"
+        RemoveAction="RemoveAction"
+        OnToggleBreakTackle="ToggleBreakTackle"
+        OnToggleDivingTackle="ToggleDivingTackle"
+        OnToggleBrawler="ToggleBrawler"
+        OnTogglePro="TogglePro"
+        OnToggleRerollInaccurate="ToggleRerollInaccurate"
+        OnToggleRerollFailure="ToggleRerollFailure"
+        OnSuccessesChanged="SuccessesChanged"
+        OnEditPlayer="EditPlayer"/>
+
+    <MudDivider Style="Margin:10px 0 10px 0" DividerType="DividerType.Middle"/>
+    
+    @if (_calculations.Any(x => CalculationValidator.Validate(x).IsValid))
+    {
+        <h4>Results</h4>
+    }
+
+    <MudGrid Spacing="1">
+        @for (var i = 0; i < _calculations.Count; i++)
+        {
+            <CalculationResults
+                Calculation="_calculations[i]"
+                CalculationIndex="i" 
+                Results="GetResults(_calculations[i]).ToList()"
+                OnSaveCalculation="SaveCalculation"
+                OnRerollsChanged="RerollsChanged"
+                OnClearCalculation="ClearCalculation"
+                OnEditCalculation="EditCalculation"/>
+        }
+    </MudGrid>
+</MudContainer>

@@ -27,7 +27,7 @@ namespace ActionCalculator
 
             if (!validationResult.IsValid)
             {
-                return new CalculationResult(validationResult.Errors);
+                return new CalculationResult(calculation.Rerolls, validationResult.Errors);
             }
 
             _calculation = calculation;
@@ -36,7 +36,7 @@ namespace ActionCalculator
             Resolve(1m, calculation.Rerolls, -1, Skills.None);
             AggregateResults(_results);
 
-            return new CalculationResult(_results.Where(x => x > 0).ToArray());
+            return new CalculationResult(calculation.Rerolls, _results.Where(x => x > 0).ToArray());
         }
 
         public void Resolve(decimal p, int r, int i, Skills usedSkills, bool nonCriticalFailure = false)

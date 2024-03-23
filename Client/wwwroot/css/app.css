@@ -220,3 +220,12 @@ h2 {
 .player-summary button {
     margin-left: 5px;
 }
+
+.calculation-results .mud-button {
+    float: right;
+    margin-right: 6px;
+}
+
+.calculation-results .mud-input-label {
+    width:150px;
+}

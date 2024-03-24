@@ -1,12 +1,12 @@
 ﻿@using ActionCalculator.Utilities
 
 <MudItem>
-    <MudPaper>
+    <MudPaper Class="block-action">
         <h5>Block</h5>
         
         <MudNumericField T="int" Min="MinimumDice" Max="MaximumDice ?? 1" 
                          Value="NumberOfDice" 
-                         ValueChanged="@(NumberOfDiceChanged)" Label="Dice" Disabled="Disabled"/>
+                         ValueChanged="@(NumberOfDiceChanged)" Label="@Label()" Disabled="Disabled" />
         <MudNumericField T="int" Min="1" Max="5" @bind-Value="_numberOfSuccesses" Label="Successes" Disabled="Disabled"/>
         <MudButton Variant="Variant.Outlined" OnClick="AddAction" Disabled="Disabled">Add</MudButton>
     </MudPaper>
@@ -40,7 +40,7 @@
 
     [Parameter]
     public int? MaximumDice { get; set; }
-    
+
     private void NumberOfDiceChanged(int i)
     {
         _previousNumberOfDice = NumberOfDice;
@@ -59,4 +59,6 @@
         OnAddAction.InvokeAsync(new ActionCalculator.Models.Actions.Block(NumberOfDice, 
             _numberOfSuccesses, 0, false, false, true));
     }
+
+    private string Label() => _numberOfDice > 0 ? "Dice (you choose)" : "Dice (opponent chooses)";
 }

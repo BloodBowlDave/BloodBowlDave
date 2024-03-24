@@ -19,7 +19,7 @@ namespace ActionCalculator
                 ActionType.Block => true,
                 ActionType.Catch => !previousDauntless,
                 ActionType.Foul => !previousDauntless,
-                ActionType.ArmourBreak => !previousDauntless && previousActionType is ActionType.Block or ActionType.Foul,
+                ActionType.ArmourBreak => !previousDauntless,
                 ActionType.NonRerollable => !previousDauntless,
                 ActionType.ThrowTeammate => !previousDauntless,
                 ActionType.Dauntless => !previousDauntless,
@@ -33,7 +33,7 @@ namespace ActionCalculator
                                                            || previousActionType is ActionType.Injury &&
                                                            previousPreviousActionType is ActionType.Foul
                                                            || previousActionType is ActionType.Bribe or ActionType.ArgueTheCall),
-                ActionType.Injury => !previousDauntless && previousActionType is ActionType.ArmourBreak or ActionType.Foul,
+                ActionType.Injury => !previousDauntless,
                 ActionType.Landing => !previousDauntless && previousActionType is ActionType.ThrowTeammate,
                 ActionType.HailMaryPass => !previousDauntless,
                 ActionType.Hypnogaze => !previousDauntless,

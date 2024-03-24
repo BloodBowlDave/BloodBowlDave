@@ -82,6 +82,14 @@ h2 {
     width: 90px;
 }
 
+.block-action .mud-input-number-control:first-of-type {
+    width: 140px;
+}
+
+.block-action .mud-input-number-control:first-of-type label {
+    width: 190px;
+}
+
 .actions-container .mud-button-outlined, .calculation-results .mud-button-outlined {
     margin-top: 12px;
     min-width: auto !important;

@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace ActionCalculator.Models
+﻿namespace ActionCalculator.Models
 {
     public class CalculationResult
     {
@@ -8,21 +6,15 @@ namespace ActionCalculator.Models
         {
             Rerolls = rerolls;
             Results = results;
-            IsValid = true;
-            ValidationFailures = new List<ValidationFailure>();
         }
 
-        public CalculationResult(int rerolls, ICollection<ValidationFailure> validationFailures)
+        public CalculationResult(int rerolls)
         {
             Rerolls = rerolls;
             Results = Array.Empty<decimal>();
-            IsValid = false;
-            ValidationFailures = validationFailures;
         }
         
         public int Rerolls { get; set; }
         public decimal[] Results { get; set; }
-        public bool IsValid { get; set; }
-        public ICollection<ValidationFailure> ValidationFailures { get; set; }
     }
 }

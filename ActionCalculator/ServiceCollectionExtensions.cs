@@ -23,7 +23,6 @@ namespace ActionCalculator
             services.AddSingleton<ICalculator, Calculator>();
             services.AddSingleton<IBrawlerHelper, BrawlerHelper>();
             services.AddSingleton<ID6, D6>();
-            services.AddSingleton<IEqualityComparer<decimal>, ProbabilityComparer>();
             services.AddSingleton<IPlayerActionsBuilder, PlayerActionsBuilder>();
             services.AddSingleton<IPlayerBuilder, PlayerBuilder>();
             services.AddSingleton<IProHelper, ProHelper>();

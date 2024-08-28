@@ -90,8 +90,8 @@ namespace ActionCalculator.Tests
         [InlineData("BT1:D5\",D4\"", 0, 0.05556)]
         [InlineData("BT1:D7", 0, 0.16667)]
         [InlineData("BT2:D5,D4", 1, 0.44444, 0.72222)]
-        [InlineData("BT2:D3¬,D4", 0, 0.63889)]
-        [InlineData("BT2:D3¬,D4", 1, 0.55556, 0.86111)]
+        [InlineData("BT2:D3Â¬,D4", 0, 0.63889)]
+        [InlineData("BT2:D3Â¬,D4", 1, 0.55556, 0.86111)]
         [InlineData("D,I3,L4:D3,D3", 0, 0.90741)]
         //catch
         [InlineData("C:C3", 0, 0.88889)]

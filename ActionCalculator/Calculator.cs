@@ -27,7 +27,7 @@ namespace ActionCalculator
 
             if (!validationResult.IsValid)
             {
-                return new CalculationResult(calculation.Rerolls, validationResult.Errors);
+                return new CalculationResult(calculation.Rerolls);
             }
 
             _calculation = calculation;
